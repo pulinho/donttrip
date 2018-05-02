@@ -2,9 +2,7 @@
 
 public class PlayerMovement : MonoBehaviour {
 
-    public int m_PlayerNumber = 0;
-    public float m_Speed = 12f;
-    public float m_TurnSpeed = 180f;
+    private const float speed = 500f;
 
     private string verticalAxisName;
     private string horizontalAxisName;
@@ -12,7 +10,7 @@ public class PlayerMovement : MonoBehaviour {
     private float horizontalMovement;
     private float verticalMovement;
 
-    private Rigidbody m_Rigidbody;
+    private Rigidbody bodyRigidbody;
 
     private int collisionCount = 0;
 
@@ -20,13 +18,39 @@ public class PlayerMovement : MonoBehaviour {
     private const float jumpCoolDownPeriodSec = 0.5f;
 
     private float deathTimeStamp = 0;
-    private const float deathTimeoutSec = 3.0f;
+    private const float deathTimeoutSec = 2.0f;
 
-    public bool isAlive;
+    [HideInInspector] public int m_PlayerNumber = 0;
+    [HideInInspector] public bool isAlive;
+    [HideInInspector] public Transform gunPoint;
+
+    private Gun equippedGun;
 
     void OnCollisionEnter(Collision col)
     {
         collisionCount++;
+
+        if(equippedGun != null)
+        {
+            return;
+        }
+        var gun = col.gameObject.GetComponent<Gun>();
+        if (gun != null)
+        {
+            var rb = gun.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.detectCollisions = false;
+                rb.isKinematic = true;
+
+                gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
+                gun.transform.parent = gunPoint;
+            }
+
+            gun.playerNumber = m_PlayerNumber;
+            equippedGun = gun;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -36,14 +60,14 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        bodyRigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
     {
         isAlive = true;
         // When the tank is turned on, make sure it's not kinematic.
-        m_Rigidbody.isKinematic = false;
+        bodyRigidbody.isKinematic = false;
 
         // Also reset the input values.
         horizontalMovement = 0f;
@@ -53,7 +77,7 @@ public class PlayerMovement : MonoBehaviour {
     private void OnDisable()
     {
         // When the tank is turned off, set it to kinematic so it stops moving.
-        m_Rigidbody.isKinematic = true;
+        bodyRigidbody.isKinematic = true;
     }
 
     // Use this for initialization
@@ -105,20 +129,44 @@ public class PlayerMovement : MonoBehaviour {
         //Move(1.0f - (angle / 90.0f));
     }
 
+    private void DropGun()
+    {
+        if(equippedGun == null)
+        {
+            return;
+        }
+        var rb = equippedGun.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.detectCollisions = true;
+            rb.isKinematic = false;
+
+            //gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
+            equippedGun.transform.parent = null;
+        }
+
+        equippedGun.playerNumber = -1;
+        equippedGun = null;
+    }
 
     private void Move(float angleMultiplier)
     {
         if (horizontalMovement != 0 || verticalMovement != 0)
         {
-            var moveDirection = new Vector3(horizontalMovement, 0, verticalMovement) * m_Speed * Time.deltaTime * angleMultiplier;
-            m_Rigidbody.AddForce(moveDirection);
+            var moveDirection = new Vector3(horizontalMovement, 0, verticalMovement) * speed * Time.deltaTime * angleMultiplier;
+            bodyRigidbody.AddForce(moveDirection);
         }
 
         if(Input.GetButton("Jump" + m_PlayerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
         {
             jumpCoolDownTimeStamp = Time.time + jumpCoolDownPeriodSec;
 
-            m_Rigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0)); // make it relative?
+            bodyRigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0)); // make it relative?
+        }
+
+        if (Input.GetButton("DropGun" + m_PlayerNumber)) {
+            DropGun();
         }
     }
 

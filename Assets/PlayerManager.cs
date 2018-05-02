@@ -18,31 +18,20 @@ public class PlayerManager : MonoBehaviour {
     public void Setup()
     {
         isAlive = true;
-
-        // Get references to the components.
+        
         movement = instance.GetComponent<PlayerMovement>();
-
-        gun = instance.GetComponentsInChildren<Gun>()[0];
-        if (gun != null)
-        {
-            gun.playerNumber = playerNumber;
-        }
-
-        gunPoint = instance.transform.Find("GunPoint");
+        
         gunRotation = instance.transform.Find("GunRotation");
+        gunPoint = gunRotation.transform.Find("GunPoint");
 
         movement.m_PlayerNumber = playerNumber;
+        movement.gunPoint = gunPoint;
 
         setColor(playerColor);
     }
 
     void Update()
     {
-        /*if (Input.GetButton("Fire" + m_PlayerNumber))
-        {
-            gun.Fire();
-        }*/
-
         if (!movement.isAlive)
         {
             setColor(Color.white);
@@ -80,7 +69,7 @@ public class PlayerManager : MonoBehaviour {
     {
         enabled = false;
         //movement.enabled = false; // necessary?
-        gun.enabled = false;
+        //gun.enabled = false;
         //m_CanvasGameObject.SetActive(false);
     }
     
@@ -89,7 +78,7 @@ public class PlayerManager : MonoBehaviour {
     {
         enabled = false;
         //movement.enabled = true;
-        gun.enabled = true;
+        //gun.enabled = true;
         //m_CanvasGameObject.SetActive(true);
     }
     
