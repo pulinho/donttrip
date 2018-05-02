@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour {
         
         movement = instance.GetComponent<PlayerMovement>();
         
-        gunRotation = instance.transform.Find("GunRotation");
+        gunRotation = instance.transform.Find("Body").transform.Find("GunRotation");
         gunPoint = gunRotation.transform.Find("GunPoint");
 
         movement.playerNumber = playerNumber;
