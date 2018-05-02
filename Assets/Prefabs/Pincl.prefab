@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
-  speed: 12
   isAlive: 1
   gunPoint: {fileID: 0}
 --- !u!135 &135594581065795652
