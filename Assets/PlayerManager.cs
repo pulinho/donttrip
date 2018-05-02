@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour {
         gunRotation = instance.transform.Find("GunRotation");
         gunPoint = gunRotation.transform.Find("GunPoint");
 
-        movement.m_PlayerNumber = playerNumber;
+        movement.playerNumber = playerNumber;
         movement.gunPoint = gunPoint;
 
         setColor(playerColor);

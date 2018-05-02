@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
     private float deathTimeStamp = 0;
     private const float deathTimeoutSec = 2.0f;
 
-    [HideInInspector] public int m_PlayerNumber = 0;
+    [HideInInspector] public int playerNumber = 0;
     [HideInInspector] public bool isAlive;
     [HideInInspector] public Transform gunPoint;
 
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         collisionCount++;
 
-        if(equippedGun != null)
+        if(!isAlive || equippedGun != null)
         {
             return;
         }
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour {
                 gun.transform.parent = gunPoint;
             }
 
-            gun.playerNumber = m_PlayerNumber;
+            gun.playerNumber = playerNumber;
             equippedGun = gun;
         }
     }
@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        verticalAxisName = "Vertical" + m_PlayerNumber;
-        horizontalAxisName = "Horizontal" + m_PlayerNumber;
+        verticalAxisName = "Vertical" + playerNumber;
+        horizontalAxisName = "Horizontal" + playerNumber;
     }
 	
 	// Update is called once per frame
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if(deathTimeStamp <= Time.time)
             {
-                isAlive = false;
+                Die();
                 return;
             }
         }
@@ -121,12 +121,18 @@ public class PlayerMovement : MonoBehaviour {
 
         if (transform.position.y < -2.0f)
         {
-            isAlive = false;
+            Die();
             return;
         }
 
         Move(Mathf.Cos(Mathf.Deg2Rad * angle));
         //Move(1.0f - (angle / 90.0f));
+    }
+
+    private void Die()
+    {
+        isAlive = false;
+        DropGun();
     }
 
     private void DropGun()
@@ -158,14 +164,14 @@ public class PlayerMovement : MonoBehaviour {
             bodyRigidbody.AddForce(moveDirection);
         }
 
-        if(Input.GetButton("Jump" + m_PlayerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
+        if(Input.GetButton("Jump" + playerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
         {
             jumpCoolDownTimeStamp = Time.time + jumpCoolDownPeriodSec;
 
             bodyRigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0)); // make it relative?
         }
 
-        if (Input.GetButton("DropGun" + m_PlayerNumber)) {
+        if (Input.GetButton("DropGun" + playerNumber)) {
             DropGun();
         }
     }
