@@ -116,10 +116,19 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator RoundEnding()
     {
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].isAlive)
+            {
+                PlayerManager.playerHeightMultiplier[i] += 0.01f;
+                break;
+            }
+        }
         yield return endWait;
     }
 
     private int playersAliveBefore = 0; // weird
+    private bool firstBlood = false;
 
     private int PlayersAlive()
     {
@@ -130,6 +139,11 @@ public class GameManager : MonoBehaviour {
             if (players[i].isAlive)
             {
                 playersAlive++;
+            }
+            else if (!firstBlood)
+            {
+                firstBlood = true;
+                PlayerManager.playerHeightMultiplier[i] -= 0.01f;
             }
         }
 

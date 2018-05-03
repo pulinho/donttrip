@@ -2,6 +2,8 @@
 
 public class PlayerManager : MonoBehaviour {
 
+    [HideInInspector] public static float[] playerHeightMultiplier;
+
     [HideInInspector] public bool isAlive;
     [HideInInspector] public int playerNumber;
     [HideInInspector] public GameObject instance;
@@ -27,7 +29,21 @@ public class PlayerManager : MonoBehaviour {
         movement.playerNumber = playerNumber;
         movement.gunPoint = gunPoint;
 
+        SetPlayerHeight();
+
         setColor(playerColor);
+    }
+
+    private void SetPlayerHeight()
+    {
+        if (playerHeightMultiplier == null)
+        {
+            Debug.Log("initializing heights");
+            playerHeightMultiplier = new float[4] { 0.33f, 0.33f, 0.33f, 0.33f };
+        }
+
+        instance.transform.Find("Body").localScale = new Vector3(1, playerHeightMultiplier[playerNumber], 1);
+        instance.transform.Find("Head").localPosition = new Vector3(0, playerHeightMultiplier[playerNumber] + 0.45f, 0);
     }
 
     void Update()
