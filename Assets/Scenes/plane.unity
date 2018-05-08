@@ -143,9 +143,9 @@ MonoBehaviour:
   isAlive: 0
   playerNumber: 0
   instance: {fileID: 0}
+  gunPoint: {fileID: 0}
   playerColor: {r: 0.10380621, g: 0.9411765, b: 0.73327774, a: 0}
   spawnPoint: {fileID: 1379010211}
-  gunPoint: {fileID: 0}
 --- !u!4 &60400429
 Transform:
   m_ObjectHideFlags: 0
@@ -349,9 +349,9 @@ MonoBehaviour:
   isAlive: 0
   playerNumber: 0
   instance: {fileID: 0}
+  gunPoint: {fileID: 0}
   playerColor: {r: 0.9485294, g: 0.06974482, b: 0.06974482, a: 0}
   spawnPoint: {fileID: 979085055}
-  gunPoint: {fileID: 0}
 --- !u!4 &362429062
 Transform:
   m_ObjectHideFlags: 0

@@ -7,15 +7,18 @@ public class PlayerManager : MonoBehaviour {
     [HideInInspector] public bool isAlive;
     [HideInInspector] public int playerNumber;
     [HideInInspector] public GameObject instance;
+    [HideInInspector] public Transform gunPoint;
     public Color playerColor;
     public Transform spawnPoint;
-    public Transform gunPoint;
 
     private Transform gunRotation;
-    private Quaternion shiftRotation;
-
+    private Quaternion shiftRotation; // for correcing aiming when player has been rotated
     private PlayerMovement movement;
-    private Gun gun;
+
+    private static void SetInitialPleyerHeights()
+    {
+        playerHeightMultiplier = new float[4] { 0.33f, 0.33f, 0.33f, 0.33f };
+    }
 
     public void Setup()
     {
@@ -29,19 +32,18 @@ public class PlayerManager : MonoBehaviour {
         movement.playerNumber = playerNumber;
         movement.gunPoint = gunPoint;
 
-        SetPlayerHeight();
+        if (playerHeightMultiplier == null)
+        {
+            SetInitialPleyerHeights();
+        }
 
-        setColor(playerColor);
+        SetPlayerHeight();
+        SetColor(playerColor);
     }
+    
 
     private void SetPlayerHeight()
     {
-        if (playerHeightMultiplier == null)
-        {
-            Debug.Log("initializing heights");
-            playerHeightMultiplier = new float[4] { 0.33f, 0.33f, 0.33f, 0.33f };
-        }
-
         instance.transform.Find("Body").localScale = new Vector3(1, playerHeightMultiplier[playerNumber], 1);
         instance.transform.Find("Head").localPosition = new Vector3(0, playerHeightMultiplier[playerNumber] + 0.45f, 0);
     }
@@ -50,9 +52,8 @@ public class PlayerManager : MonoBehaviour {
     {
         if (!movement.isAlive)
         {
-            setColor(Color.white);
+            SetColor(Color.white);
             isAlive = false;
-            DisableControl();
         }
     }
 
@@ -63,14 +64,9 @@ public class PlayerManager : MonoBehaviour {
         {
             shiftRotation = Quaternion.Inverse(Quaternion.FromToRotation(Vector3.forward, instance.transform.forward));
         }
-
-        //Debug.Log(playerNumber + " ang: " + instance.transform.rotation.y);
         
         var horizontal = Input.GetAxis("RightStickHorizontal" + playerNumber);
         var vertical = Input.GetAxis("RightStickVertical" + playerNumber);
-
-        //var angleShift = Quaternion.Angle(transform.rotation, instance.transform.rotation);
-        //Debug.Log(playerNumber + " angShift: " + angleShift);
 
         if (horizontal != 0 || vertical != 0)
         {
@@ -80,41 +76,13 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    // Used during the phases of the game where the player shouldn't be able to control their tank.
-    public void DisableControl()
-    {
-        enabled = false;
-        //movement.enabled = false; // necessary?
-        //gun.enabled = false;
-        //m_CanvasGameObject.SetActive(false);
-    }
-    
-    // Used during the phases of the game where the player should be able to control their tank.
-    public void EnableControl()
-    {
-        enabled = false;
-        //movement.enabled = true;
-        //gun.enabled = true;
-        //m_CanvasGameObject.SetActive(true);
-    }
-    
-    // Used at the start of each round to put the tank into it's default state.
-    public void Reset()
-    {
-        instance.transform.position = spawnPoint.position;
-        instance.transform.rotation = spawnPoint.rotation;
-
-        instance.SetActive(false);
-        instance.SetActive(true);
-    }
-
-    private void setColor(Color color)
+    private void SetColor(Color color)
     {
         MeshRenderer[] renderers = instance.GetComponentsInChildren<MeshRenderer>();
 
-        for (int i = 0; i < renderers.Length; i++)
+        foreach(var renderer in renderers)
         {
-            renderers[i].material.color = color;
+            renderer.material.color = color;
         }
     }
 }

@@ -10,15 +10,14 @@ public class Gun : MonoBehaviour {
 
     private const float coolDownPeriodInSeconds = 0.2f;
     private const float projectileSpeed = 300.0f;
-
-    // Use this for initialization
-    void Start () {
-        setColor(Color.black);
+    
+    void Start ()
+    {
+        SetColor(Color.black);
     }
 	
-	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
         if(playerNumber == -1)
         {
             return;
@@ -26,7 +25,6 @@ public class Gun : MonoBehaviour {
 
         if (Input.GetAxis("Fire" + playerNumber) > 0.9f)
         {
-            //Debug.Log("Fire" + playerNumber);
             if (coolDownTimeStamp <= Time.time)
             {
                 coolDownTimeStamp = Time.time + coolDownPeriodInSeconds;
@@ -38,22 +36,13 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    private void setColor(Color color) // make extension
+    private void SetColor(Color color)
     {
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
 
-        for (int i = 0; i < renderers.Length; i++)
+        foreach (var renderer in renderers)
         {
-            renderers[i].material.color = color;
+            renderer.material.color = color;
         }
     }
-
-    /*public void Fire()
-    {
-        if (coolDownTimeStamp <= Time.time)
-        {
-            var m_Instance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
-            coolDownTimeStamp = Time.time + coolDownPeriodInSeconds;
-        }
-    }*/
 }

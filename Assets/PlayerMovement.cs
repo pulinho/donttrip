@@ -34,22 +34,10 @@ public class PlayerMovement : MonoBehaviour {
         {
             return;
         }
-        var gun = col.gameObject.GetComponent<Gun>();
+        var gun = col.gameObject.GetComponent<Gun>(); // todo: tag or something maybe?
         if (gun != null)
         {
-            var rb = gun.GetComponent<Rigidbody>();
-
-            if (rb != null)
-            {
-                rb.detectCollisions = false;
-                rb.isKinematic = true;
-
-                gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
-                gun.transform.parent = gunPoint;
-            }
-
-            gun.playerNumber = playerNumber;
-            equippedGun = gun;
+            TakeGun(gun);
         }
     }
 
@@ -62,31 +50,12 @@ public class PlayerMovement : MonoBehaviour {
     {
         bodyRigidbody = GetComponent<Rigidbody>();
     }
-
-    private void OnEnable()
-    {
-        isAlive = true;
-        // When the tank is turned on, make sure it's not kinematic.
-        bodyRigidbody.isKinematic = false;
-
-        // Also reset the input values.
-        horizontalMovement = 0f;
-        verticalMovement = 0f;
-    }
-
-    private void OnDisable()
-    {
-        // When the tank is turned off, set it to kinematic so it stops moving.
-        bodyRigidbody.isKinematic = true;
-    }
-
-    // Use this for initialization
+    
     void Start () {
-        verticalAxisName = "Vertical" + playerNumber;
-        horizontalAxisName = "Horizontal" + playerNumber;
+        verticalAxisName = "LeftStickVertical" + playerNumber;
+        horizontalAxisName = "LeftStickHorizontal" + playerNumber;
     }
 	
-	// Update is called once per frame
 	void Update () {
         horizontalMovement = Input.GetAxis(horizontalAxisName);
         verticalMovement = Input.GetAxis(verticalAxisName);
@@ -100,7 +69,6 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         var angle = Vector3.Angle(Vector3.up, transform.up);
-        //Debug.Log(m_PlayerNumber + " :" + angle);
 
         if(angle > 85.0f && collisionCount > 0)
         {
@@ -126,7 +94,6 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         Move(Mathf.Cos(Mathf.Deg2Rad * angle));
-        //Move(1.0f - (angle / 90.0f));
     }
 
     private void Die()
@@ -135,23 +102,35 @@ public class PlayerMovement : MonoBehaviour {
         DropGun();
     }
 
+    private void TakeGun(Gun gun)
+    {
+        var rb = gun.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.detectCollisions = false;
+            rb.isKinematic = true;
+        }
+        gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
+        gun.transform.parent = gunPoint;
+        gun.playerNumber = playerNumber;
+
+        equippedGun = gun;
+    }
+
     private void DropGun()
     {
         if(equippedGun == null)
         {
             return;
         }
-        var rb = equippedGun.GetComponent<Rigidbody>();
 
+        var rb = equippedGun.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.detectCollisions = true;
             rb.isKinematic = false;
-
-            //gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
-            equippedGun.transform.parent = null;
         }
-
+        equippedGun.transform.parent = null;
         equippedGun.playerNumber = -1;
         equippedGun = null;
     }
@@ -167,14 +146,11 @@ public class PlayerMovement : MonoBehaviour {
         if(Input.GetButton("Jump" + playerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
         {
             jumpCoolDownTimeStamp = Time.time + jumpCoolDownPeriodSec;
-
-            bodyRigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0)); // make it relative?
+            bodyRigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0));
         }
 
         if (Input.GetButton("DropGun" + playerNumber)) {
             DropGun();
         }
     }
-
-    //Turn?
 }
