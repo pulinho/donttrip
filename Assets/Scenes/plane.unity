@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 60400427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902a2ff2949929849ac4a93056e13364, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 211912306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec7d3770a60e34b48a69699091cbde66, type: 3}
+  m_Script: {fileID: 11500000, guid: bf2f202558f5904458dfb7a91b0b2e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targets: []
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 283170990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902a2ff2949929849ac4a93056e13364, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 362429060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902a2ff2949929849ac4a93056e13364, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
@@ -980,7 +980,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1282534698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa3b8afbafdd67449ab5fd8e7d44c90, type: 3}
+  m_Script: {fileID: 11500000, guid: 4899b4dfd86b24747b3be3f3b7c9bf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1412539228344612, guid: f3d382491d49ac74e9241b1c2a147a2d,
@@ -1278,7 +1278,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1326,7 +1326,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803249894}
   m_LocalRotation: {x: 0.56950694, y: -0.34537506, z: 0.37254572, w: 0.6462102}
-  m_LocalPosition: {x: -6.97, y: 0.08, z: 2.54}
+  m_LocalPosition: {x: -6.97, y: 0.07, z: 2.54}
   m_LocalScale: {x: 3.020245, y: 3.020245, z: 3.020245}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1820352381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902a2ff2949929849ac4a93056e13364, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0

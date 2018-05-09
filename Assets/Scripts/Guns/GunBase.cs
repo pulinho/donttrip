@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 
-public class Gun : MonoBehaviour {
-
+public class GunBase : MonoBehaviour
+{
     public GameObject projectilePrefab;
     public Transform spawnPoint;
+    public Color color;
+    public float projectileSpeed;
+    public float coolDownPeriodInSeconds;
+
     [HideInInspector] public int playerNumber = -1;
+    [HideInInspector] public int bulletsLeft;
 
     private float coolDownTimeStamp = 0;
 
-    private const float coolDownPeriodInSeconds = 0.2f;
-    private const float projectileSpeed = 300.0f;
-    
-    void Start ()
+    void Start()
     {
-        SetColor(Color.black);
+        SetColor(color);
     }
-	
-	void Update ()
+
+    void Update()
     {
-        if(playerNumber == -1)
+        if (playerNumber == -1)
         {
             return;
         }
@@ -46,3 +48,4 @@ public class Gun : MonoBehaviour {
         }
     }
 }
+

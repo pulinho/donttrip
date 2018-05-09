@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector] public bool isAlive;
     [HideInInspector] public Transform gunPoint;
 
-    private Gun equippedGun;
+    private BallGun equippedGun;
 
     void OnCollisionEnter(Collision col)
     {
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             return;
         }
-        var gun = col.gameObject.GetComponent<Gun>(); // todo: tag or something maybe?
+        var gun = col.gameObject.GetComponent<BallGun>(); // todo: tag or something maybe?
         if (gun != null)
         {
             TakeGun(gun);
@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour {
         DropGun();
     }
 
-    private void TakeGun(Gun gun)
+    private void TakeGun(BallGun gun)
     {
         var rb = gun.GetComponent<Rigidbody>();
         if (rb != null)
