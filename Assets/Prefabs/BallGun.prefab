@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114300197375877982}
   - component: {fileID: 54347893090247012}
   m_Layer: 8
-  m_Name: Gun
+  m_Name: BallGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,11 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1498470189788886, guid: a16481e87e42a35479f0fe14014d092c,
     type: 2}
   spawnPoint: {fileID: 4141549608720818}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  projectileSpeed: 0
+  coolDownPeriodInSeconds: 0
   playerNumber: -1
+  bulletsLeft: 0
 --- !u!136 &136794318254589036
 CapsuleCollider:
   m_ObjectHideFlags: 1
