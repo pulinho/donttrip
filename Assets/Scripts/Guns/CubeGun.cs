@@ -6,7 +6,7 @@ public class CubeGun : GunBase
     {
         //coolDownPeriodInSeconds = 0.4f;
         //projectileSpeed = 300.0f;
-        bulletsLeft = 20;
+        bulletsLeft = 5;
         color = Color.magenta;
     }
 }

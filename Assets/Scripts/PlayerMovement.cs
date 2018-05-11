@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
             return;
         }
         var gun = col.gameObject.GetComponent<GunBase>(); // todo: tag or something maybe?
-        if (gun != null)
+        if (gun != null && gun.isActive)
         {
             TakeGun(gun);
         }
@@ -91,6 +91,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             Die();
             return;
+        }
+
+        if(equippedGun != null && !equippedGun.isActive)
+        {
+            DropGun();
         }
 
         Move(Mathf.Cos(Mathf.Deg2Rad * angle));

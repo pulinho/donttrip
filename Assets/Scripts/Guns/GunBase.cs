@@ -10,6 +10,7 @@ public class GunBase : MonoBehaviour
 
     [HideInInspector] public int playerNumber = -1;
     [HideInInspector] public int bulletsLeft;
+    [HideInInspector] public bool isActive = true;
 
     private float coolDownTimeStamp = 0;
 
@@ -30,12 +31,28 @@ public class GunBase : MonoBehaviour
             if (coolDownTimeStamp <= Time.time)
             {
                 coolDownTimeStamp = Time.time + coolDownPeriodInSeconds;
-
-                var projectileInstance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
-                var projectileRigidBody = projectileInstance.GetComponent<Rigidbody>();
-                projectileRigidBody.AddForce(spawnPoint.rotation * Vector3.up * projectileSpeed);
+                Fire();
             }
         }
+    }
+
+    private void Fire()
+    {
+        var projectileInstance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
+        var projectileRigidBody = projectileInstance.GetComponent<Rigidbody>();
+        projectileRigidBody.AddForce(spawnPoint.rotation * Vector3.up * projectileSpeed);
+
+        bulletsLeft--;
+        if(bulletsLeft == 0)
+        {
+            Deactivate();
+        }
+    }
+
+    private void Deactivate()
+    {
+        isActive = false;
+        SetColor(Color.white);
     }
 
     private void SetColor(Color color)
