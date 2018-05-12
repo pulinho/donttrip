@@ -22,7 +22,8 @@ public class CubeGunProjectile : MonoBehaviour {
         {
             var subProjectileInstance = Instantiate(subProjectilePrefab, spawn.position, spawn.rotation) as GameObject;
             var subProjectileRigidBody = subProjectileInstance.GetComponent<Rigidbody>();
-            subProjectileRigidBody.AddForce(spawn.rotation * new Vector3(0, 0, 1) * 250f);
+            subProjectileRigidBody.AddForce(spawn.rotation * new Vector3(0, 0, 1) * 300f);
+            subProjectileRigidBody.AddTorque(Random.insideUnitSphere * 20);
         }
 
         Object.Destroy(this.gameObject);

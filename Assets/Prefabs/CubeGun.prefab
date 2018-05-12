@@ -95,14 +95,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832271637246190}
-  m_LocalRotation: {x: -0.38816682, y: -0, z: -0, w: 0.92158914}
-  m_LocalPosition: {x: 0, y: 0.201, z: -0.206}
+  m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 0.26, z: -0.3}
   m_LocalScale: {x: 0.3, y: 0.8, z: 0.3}
   m_Children:
   - {fileID: 4139468236583376}
   m_Father: {fileID: 4179634268267010}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -45.681004, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
 --- !u!23 &23190905123453012
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -219,8 +219,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1473774892090378, guid: 8bf5009e027f8134f9a431c5af51c00a,
     type: 2}
   spawnPoint: {fileID: 4139468236583376}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0.49803922, a: 0}
   projectileSpeed: 250
-  coolDownPeriodInSeconds: 0.5
+  coolDownPeriodInSeconds: 1
   playerNumber: -1
   bulletsLeft: 0
+  isActive: 1

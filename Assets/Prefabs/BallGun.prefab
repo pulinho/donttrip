@@ -143,11 +143,12 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1498470189788886, guid: a16481e87e42a35479f0fe14014d092c,
     type: 2}
   spawnPoint: {fileID: 4141549608720818}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.49803922, g: 0, b: 0, a: 0}
   projectileSpeed: 0
   coolDownPeriodInSeconds: 0
   playerNumber: -1
   bulletsLeft: 0
+  isActive: 1
 --- !u!136 &136794318254589036
 CapsuleCollider:
   m_ObjectHideFlags: 1

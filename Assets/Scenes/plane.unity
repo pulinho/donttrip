@@ -144,7 +144,7 @@ MonoBehaviour:
   playerNumber: 0
   instance: {fileID: 0}
   gunPoint: {fileID: 0}
-  playerColor: {r: 0.10380621, g: 0.9411765, b: 0.73327774, a: 0}
+  playerColor: {r: 0, g: 1, b: 0, a: 0}
   spawnPoint: {fileID: 1379010211}
 --- !u!4 &60400429
 Transform:
@@ -378,7 +378,7 @@ MonoBehaviour:
   playerNumber: 0
   instance: {fileID: 0}
   gunPoint: {fileID: 0}
-  playerColor: {r: 1, g: 0.88965523, b: 0, a: 0}
+  playerColor: {r: 1, g: 1, b: 0, a: 0}
   spawnPoint: {fileID: 1583525423}
 --- !u!4 &283170992
 Transform:
@@ -424,7 +424,7 @@ MonoBehaviour:
   playerNumber: 0
   instance: {fileID: 0}
   gunPoint: {fileID: 0}
-  playerColor: {r: 0.9485294, g: 0.06974482, b: 0.06974482, a: 0}
+  playerColor: {r: 0, g: 1, b: 1, a: 0}
   spawnPoint: {fileID: 979085055}
 --- !u!4 &362429062
 Transform:
@@ -781,7 +781,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1212101495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.822597, y: 1.0785599, z: -2.0099373}
+  m_LocalPosition: {x: -6.362, y: 1.0785599, z: -2.0099373}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1451,7 +1451,7 @@ MonoBehaviour:
   playerNumber: 0
   instance: {fileID: 0}
   gunPoint: {fileID: 0}
-  playerColor: {r: 0.27265355, g: 0.35543558, b: 0.9044118, a: 0}
+  playerColor: {r: 1, g: 0, b: 1, a: 0}
   spawnPoint: {fileID: 258537384}
 --- !u!4 &1820352383
 Transform:

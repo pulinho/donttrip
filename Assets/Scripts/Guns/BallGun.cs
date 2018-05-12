@@ -7,6 +7,6 @@ public class BallGun : GunBase {
         coolDownPeriodInSeconds = 0.2f;
         projectileSpeed = 300.0f;
         bulletsLeft = 20;
-        color = Color.black;
+        //color = Color.black;
     }
 }

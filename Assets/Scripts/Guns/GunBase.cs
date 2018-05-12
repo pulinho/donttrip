@@ -41,6 +41,7 @@ public class GunBase : MonoBehaviour
         var projectileInstance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
         var projectileRigidBody = projectileInstance.GetComponent<Rigidbody>();
         projectileRigidBody.AddForce(spawnPoint.rotation * Vector3.up * projectileSpeed);
+        projectileRigidBody.AddTorque(Random.insideUnitSphere * 10);
 
         bulletsLeft--;
         if(bulletsLeft == 0)
