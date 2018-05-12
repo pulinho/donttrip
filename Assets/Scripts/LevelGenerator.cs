@@ -26,10 +26,41 @@ public class LevelGenerator : MonoBehaviour {
             spawnPoint[indexes[i]].RotateAround(Vector3.zero, Vector3.up, randomRotate);
         }
 
-        ground.SetColor(Random.ColorHSV(0, 1, 0, 0.25f, 0.75f, 1, 1, 1));
+        ground.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
 
-        directionalLight.localEulerAngles = new Vector3(Random.Range(40f, 140f), Random.Range(0f, 360f), 0);
+        directionalLight.localEulerAngles = new Vector3(Random.Range(45f, 60f), Random.Range(-45f, 45f), 0);
 
+        PlaceObjects();
+    }
+
+    private void PlaceObjects()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            PlaceRandomPrimitive();
+        }
+    }
+
+    private void PlaceRandomPrimitive()
+    {
+        var type = Random.Range(0, 2);
+        var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Cube : PrimitiveType.Sphere);
+
+        Vector3 position;
+        do {
+            position = new Vector3(Random.Range(-14f, 14f), 2, Random.Range(-14f, 14f));
+        }
+        while (Mathf.Abs(position.magnitude - spawnPoint[0].localPosition.magnitude) < 2);
+
+        instance.transform.position = position;
+
+        var scale = Random.Range(1f, 2.5f);
+        instance.transform.localScale = new Vector3(scale, scale, scale);
+        instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
+        instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
+
+        var rb = instance.AddComponent<Rigidbody>();
+        rb.mass = scale;
     }
 
     // for shuffling spawn positions
