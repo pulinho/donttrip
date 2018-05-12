@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour {
         }
 
         SetPlayerHeight();
-        SetColor(playerColor);
+        instance.SetColor(playerColor);
     }
     
 
@@ -52,7 +52,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (!movement.isAlive)
         {
-            SetColor(Color.white);
+            instance.SetColor(Color.white);
             isAlive = false;
         }
     }
@@ -73,16 +73,6 @@ public class PlayerManager : MonoBehaviour {
             Vector3 lookDirection = new Vector3(horizontal, 0, vertical);
 
             gunRotation.rotation = instance.transform.rotation * shiftRotation * Quaternion.LookRotation(lookDirection);
-        }
-    }
-
-    private void SetColor(Color color)
-    {
-        MeshRenderer[] renderers = instance.GetComponentsInChildren<MeshRenderer>();
-
-        foreach(var renderer in renderers)
-        {
-            renderer.material.color = color;
         }
     }
 }

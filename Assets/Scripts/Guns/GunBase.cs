@@ -5,6 +5,7 @@ public class GunBase : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform spawnPoint;
     public Color color;
+    public Color projectileColor;
     public float projectileSpeed;
     public float coolDownPeriodInSeconds;
 
@@ -16,7 +17,7 @@ public class GunBase : MonoBehaviour
 
     void Start()
     {
-        SetColor(color);
+        gameObject.SetColor(color);
     }
 
     void Update()
@@ -39,6 +40,9 @@ public class GunBase : MonoBehaviour
     private void Fire()
     {
         var projectileInstance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
+        //projectileInstance.SetColor(projectileColor);
+        projectileInstance.SetColor(Random.ColorHSV());
+
         var projectileRigidBody = projectileInstance.GetComponent<Rigidbody>();
         projectileRigidBody.AddForce(spawnPoint.rotation * Vector3.up * projectileSpeed);
         projectileRigidBody.AddTorque(Random.insideUnitSphere * 10);
@@ -53,17 +57,7 @@ public class GunBase : MonoBehaviour
     private void Deactivate()
     {
         isActive = false;
-        SetColor(Color.white);
-    }
-
-    private void SetColor(Color color)
-    {
-        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
-
-        foreach (var renderer in renderers)
-        {
-            renderer.material.color = color;
-        }
+        gameObject.SetColor(Color.white);
     }
 }
 
