@@ -6,13 +6,14 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject ground;
     public Transform[] spawnPoint;
     public Transform directionalLight;
+    public GameObject[] gunPrefab;
 
     private void Awake()
     {
-        var groundScaleVec = new Vector3(Random.Range(3f, 5f), 1, 3);
+        var groundScaleVec = new Vector3(Random.Range(30f, 50f), 1, 30);
         ground.transform.localScale = groundScaleVec;
 
-        var randomRotate = Random.Range(-30f, 30f);
+        var randomRotate = Random.Range(-10f, 10f);
         ground.transform.Rotate(Vector3.up * randomRotate);
 
         var indexes = RandomizedSpawnIndexes();
@@ -22,7 +23,7 @@ public class LevelGenerator : MonoBehaviour {
             var xMultiplier = ((i / 2) - 0.5f) * 2;
             var zMultiplier = ((i % 2) - 0.5f) * 2;
             
-            spawnPoint[indexes[i]].localPosition = new Vector3(groundScaleVec.x * 4 * xMultiplier, 2, groundScaleVec.z * 4 * zMultiplier);
+            spawnPoint[indexes[i]].localPosition = new Vector3(groundScaleVec.x * 0.4f * xMultiplier, 2, groundScaleVec.z * 0.4f * zMultiplier);
             spawnPoint[indexes[i]].RotateAround(Vector3.zero, Vector3.up, randomRotate);
         }
 
@@ -31,20 +32,35 @@ public class LevelGenerator : MonoBehaviour {
         directionalLight.localEulerAngles = new Vector3(Random.Range(45f, 60f), Random.Range(-45f, 45f), 0);
 
         PlaceObjects();
+        PlaceGuns();
+    }
+
+    private void PlaceGuns()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            PlaceRandomGun(i % gunPrefab.Length);
+        }
+    }
+
+    private void PlaceRandomGun(int prefabIndex)
+    {
+        var instance = Instantiate(gunPrefab[prefabIndex], new Vector3(Random.Range(-12f, 12f), 40, Random.Range(-12f, 12f)), Quaternion.identity) as GameObject;
+        var rb = instance.GetComponent<Rigidbody>();
+        rb.AddTorque(Random.insideUnitSphere);
     }
 
     private void PlaceObjects()
     {
         for (int i = 0; i < 15; i++)
         {
-            PlaceRandomPrimitive();
+            PlaceRandomPrimitive(i % 3);
         }
     }
 
-    private void PlaceRandomPrimitive()
+    private void PlaceRandomPrimitive(int type)
     {
-        var type = Random.Range(0, 2);
-        var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Cube : PrimitiveType.Sphere);
+        var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Sphere : PrimitiveType.Cube);
 
         Vector3 position;
         do {
@@ -55,7 +71,15 @@ public class LevelGenerator : MonoBehaviour {
         instance.transform.position = position;
 
         var scale = Random.Range(1f, 2.5f);
-        instance.transform.localScale = new Vector3(scale, scale, scale);
+        if (type < 2)
+        {
+            instance.transform.localScale = new Vector3(scale, scale, scale);
+        }
+        else
+        {
+            instance.transform.localScale = new Vector3(Random.Range(0.5f, 3f), Random.Range(0.5f, 3f), Random.Range(0.5f, 3f));
+        }
+
         instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
         instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
 

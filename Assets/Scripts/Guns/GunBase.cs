@@ -12,6 +12,7 @@ public class GunBase : MonoBehaviour
     [HideInInspector] public int playerNumber = -1;
     [HideInInspector] public int bulletsLeft;
     [HideInInspector] public bool isActive = true;
+    [HideInInspector] public Rigidbody playerRigidbody;
 
     private float coolDownTimeStamp = 0;
 
@@ -20,7 +21,7 @@ public class GunBase : MonoBehaviour
         gameObject.SetColor(color);
     }
 
-    void Update()
+    private void FixedUpdate()//
     {
         if (playerNumber == -1)
         {
@@ -44,7 +45,9 @@ public class GunBase : MonoBehaviour
         projectileInstance.SetColor(Random.ColorHSV());
 
         var projectileRigidBody = projectileInstance.GetComponent<Rigidbody>();
+        
         projectileRigidBody.AddForce(spawnPoint.rotation * Vector3.up * projectileSpeed);
+        projectileRigidBody.velocity += playerRigidbody.velocity;
         projectileRigidBody.AddTorque(Random.insideUnitSphere * 10);
 
         bulletsLeft--;

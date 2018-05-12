@@ -118,6 +118,7 @@ public class PlayerMovement : MonoBehaviour {
         gun.transform.SetPositionAndRotation(gunPoint.position, gunPoint.rotation);
         gun.transform.parent = gunPoint;
         gun.playerNumber = playerNumber;
+        gun.playerRigidbody = bodyRigidbody;
 
         equippedGun = gun;
     }
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         equippedGun.transform.parent = null;
         equippedGun.playerNumber = -1;
+        equippedGun.playerRigidbody = null;
         equippedGun = null;
     }
 
