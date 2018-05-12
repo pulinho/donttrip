@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour {
     private Quaternion shiftRotation; // for correcing aiming when player has been rotated
     private PlayerMovement movement;
 
-    private static void SetInitialPleyerHeights()
+    private static void SetInitialPlayerHeights()
     {
         playerHeightMultiplier = new float[4] { 0.33f, 0.33f, 0.33f, 0.33f };
     }
@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour {
 
         if (playerHeightMultiplier == null)
         {
-            SetInitialPleyerHeights();
+            SetInitialPlayerHeights();
         }
 
         SetPlayerHeight();

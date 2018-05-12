@@ -25,24 +25,28 @@ public class CameraController : MonoBehaviour
 
     private void Zoom()
     {
-        maxPlayerDistance = 5.0f;
+        maxPlayerDistance = 8.0f;
 
         foreach(var target in targets)
         {
-            var distance = Vector3.Distance(averagePlayerPosition, target.position);
+            var bias = Camera.main.aspect;
+            var biasVec = new Vector3(1 / bias, 1, 1);
+
+            var distance = Vector3.Distance(Vector3.Scale(averagePlayerPosition, biasVec), Vector3.Scale(target.position, biasVec));
+            //var distance = Vector3.Distance(averagePlayerPosition, target.position);
             if (distance > maxPlayerDistance)
             {
                 maxPlayerDistance = distance;
             }
         }
         
-        offset = (new Vector3(0, 2.4f, -1.6f) * maxPlayerDistance);
+        offset = (new Vector3(0, 2.1f, -1.4f) * maxPlayerDistance);
     }
 
     private void FindAveragePosition()
     {
-        Vector3 averagePos = new Vector3();
-        int numTargets = 0;
+        Vector3 minVector = new Vector3(100, 0, 100);
+        Vector3 maxVector = new Vector3(-100, 0, -100);
 
         foreach(var target in targets)
         {
@@ -51,15 +55,24 @@ public class CameraController : MonoBehaviour
                 continue;
             }
             
-            averagePos += target.position;
-            numTargets++;
+            if(target.position.x < minVector.x)
+            {
+                minVector.x = target.position.x;
+            }
+            if (target.position.z < minVector.z)
+            {
+                minVector.z = target.position.z;
+            }
+            if (target.position.x > maxVector.x)
+            {
+                maxVector.x = target.position.x;
+            }
+            if (target.position.z > maxVector.z)
+            {
+                maxVector.z = target.position.z;
+            }
         }
 
-        if (numTargets > 0)
-        {
-            averagePos /= numTargets;
-        }
-
-        averagePlayerPosition = averagePos;
+        averagePlayerPosition = minVector + ((maxVector - minVector) / 2);
     }
 }
