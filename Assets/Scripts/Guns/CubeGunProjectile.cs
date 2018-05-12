@@ -24,7 +24,7 @@ public class CubeGunProjectile : MonoBehaviour {
             subProjectileInstance.SetColor(Random.ColorHSV(0, 1, 1, 1));
 
             var subProjectileRigidBody = subProjectileInstance.GetComponent<Rigidbody>();
-            subProjectileRigidBody.AddForce(spawn.rotation * new Vector3(0, 0, 1) * 300f);
+            subProjectileRigidBody.AddForce(spawn.rotation * new Vector3(0, 0, 1) * 500f);
             subProjectileRigidBody.AddTorque(Random.insideUnitSphere * 20);
         }
 
