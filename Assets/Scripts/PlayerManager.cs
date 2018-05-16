@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour {
 
     private static void SetInitialPlayerHeights()
     {
-        playerHeightMultiplier = new float[4] { 0.33f, 0.33f, 0.33f, 0.33f };
+        playerHeightMultiplier = new float[4] { 0.3f, 0.3f, 0.3f, 0.3f };
     }
 
     public void Setup()

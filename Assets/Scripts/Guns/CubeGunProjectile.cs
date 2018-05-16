@@ -18,7 +18,7 @@ public class CubeGunProjectile : MonoBehaviour {
 
     private void BlowUp()
     {
-        foreach(var spawn in subSpawn)
+        foreach (var spawn in subSpawn)
         {
             var subProjectileInstance = Instantiate(subProjectilePrefab, spawn.position, spawn.rotation) as GameObject;
             subProjectileInstance.SetColor(Random.ColorHSV(0, 1, 1, 1));
