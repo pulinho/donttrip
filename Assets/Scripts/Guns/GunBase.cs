@@ -38,7 +38,7 @@ public class GunBase : MonoBehaviour
         }
     }
 
-    private void Fire()
+    protected virtual void Fire()
     {
         var projectileInstance = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
         //projectileInstance.SetColor(projectileColor);
@@ -57,7 +57,7 @@ public class GunBase : MonoBehaviour
         }
     }
 
-    private void Deactivate()
+    protected void Deactivate()
     {
         isActive = false;
         gameObject.SetColor(Color.white);

@@ -39,11 +39,15 @@ public class LevelGenerator : MonoBehaviour {
     {
         for (int i = 0; i < 8; i++)
         {
-            PlaceRandomGun(i % gunPrefab.Length);
+            PlaceGunRandomly(i % 2);
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            PlaceGunRandomly(2);
         }
     }
 
-    private void PlaceRandomGun(int prefabIndex)
+    private void PlaceGunRandomly(int prefabIndex)
     {
         var instance = Instantiate(gunPrefab[prefabIndex], new Vector3(Random.Range(-12f, 12f), 40, Random.Range(-12f, 12f)), Quaternion.identity) as GameObject;
         var rb = instance.GetComponent<Rigidbody>();
