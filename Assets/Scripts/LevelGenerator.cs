@@ -37,13 +37,9 @@ public class LevelGenerator : MonoBehaviour {
 
     private void PlaceGuns()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 12; i++)
         {
-            PlaceGunRandomly(i % 2);
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            PlaceGunRandomly(2);
+            PlaceGunRandomly(i % gunPrefab.Length);
         }
     }
 
