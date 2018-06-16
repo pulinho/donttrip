@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour {
 
     private Transform gunRotation;
     private Quaternion shiftRotation; // for correcing aiming when player has been rotated
-    private PlayerMovement movement;
+    private MovementBase movement;
 
     private static void SetInitialPlayerHeights()
     {
@@ -23,14 +23,15 @@ public class PlayerManager : MonoBehaviour {
     public void Setup()
     {
         isAlive = true;
-        
-        movement = instance.GetComponent<PlayerMovement>();
+
+        movement = instance.GetComponent<MovementBase>();
         
         gunRotation = instance.transform.Find("Body").transform.Find("GunRotation");
         gunPoint = gunRotation.transform.Find("GunPoint");
 
         movement.playerNumber = playerNumber;
         movement.gunPoint = gunPoint;
+        movement.isAlive = true;
 
         if (playerHeightMultiplier == null)
         {

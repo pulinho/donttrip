@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
     private void Zoom()
     {
-        maxPlayerDistance = 10.0f;
+        maxPlayerDistance = 20.0f;
 
         foreach(var target in targets)
         {

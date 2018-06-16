@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MovementBase
+{
     private const float speed = 500f;
 
     private string verticalAxisName;
@@ -19,11 +19,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private float deathTimeStamp = 0;
     private const float deathTimeoutSec = 2.0f;
-
-    [HideInInspector] public int playerNumber = 0;
-    [HideInInspector] public bool isAlive;
-    [HideInInspector] public Transform gunPoint;
-
+    
     private GunBase equippedGun;
 
     void OnCollisionEnter(Collision col)

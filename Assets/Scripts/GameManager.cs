@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
     
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator RoundPlaying()
     {
-        while (CountPlayersAlive() > 1)
+        while (CountPlayersAlive() > 0) // !!!
         {
             yield return null;
         }
