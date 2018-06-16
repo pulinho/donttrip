@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarLevelGenerator : MonoBehaviour {
 
     public GameManager gm;
+    public Transform ground;
     
     private List<GameObject[]> tileRowList;
 
@@ -42,6 +43,8 @@ public class CarLevelGenerator : MonoBehaviour {
 
     private void Awake()
     {
+        ground.transform.Rotate(Vector3.up * Random.Range(-10f, 10f));
+
         tileRowList = new List<GameObject[]>();
 
         for (int i = 0; i < newestRow; i++)
@@ -56,7 +59,7 @@ public class CarLevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            tilesInRow[i] = PlaceTile(new Vector3(i*10-10 + newestRowShift*5, -0.5f, row*10), row % 4);
+            tilesInRow[i] = PlaceTile(new Vector3(i*10-10 + newestRowShift*5, 0f, row*10), row % 4);
         }
 
         tileRowList.Add(tilesInRow);
@@ -81,9 +84,11 @@ public class CarLevelGenerator : MonoBehaviour {
     private GameObject PlaceTile(Vector3 position, int type)
     {
         var instance = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        instance.transform.parent = ground.transform;
+        instance.transform.eulerAngles = ground.transform.eulerAngles;
 
         instance.transform.localScale = new Vector3(10, 1, 10);
-        instance.transform.position = position;
+        instance.transform.localPosition = position;
 
         instance.SetColor(Random.ColorHSV(type* 0.25f, type*0.25f + 0.05f, 0.1f, 0.2f, 0.9f, 1, 1, 1));
 
@@ -92,15 +97,17 @@ public class CarLevelGenerator : MonoBehaviour {
             var axis = (Random.Range(0, 2) == 0) ? Vector3.forward : Vector3.right;
             instance.transform.Rotate(axis * Random.Range(-15f, 15f));
         }
-
+        
         return instance;
     }
 
     private void PlaceObstacleRandomly(int row, int type)
     {
         var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Sphere : PrimitiveType.Cube);
+        instance.transform.parent = ground.transform;
+        instance.transform.eulerAngles = ground.transform.eulerAngles;
 
-        instance.transform.position = new Vector3(Random.Range(-14f, 14f) + newestRowShift * 5, 2, row*10 + Random.Range(-4f, 4f));
+        instance.transform.localPosition = new Vector3(Random.Range(-14f, 14f) + newestRowShift * 5, 2, row*10 + Random.Range(-4f, 4f));
 
         var scale = Random.Range(1f, 2.5f);
         if (type < 2)
