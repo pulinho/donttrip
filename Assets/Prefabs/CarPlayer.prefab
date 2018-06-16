@@ -941,6 +941,7 @@ MonoBehaviour:
     steering: 0
   maxMotorTorque: 500
   maxSteeringAngle: 30
+  carObject: {fileID: 1327059309827068}
 --- !u!135 &135217571636303022
 SphereCollider:
   m_ObjectHideFlags: 1

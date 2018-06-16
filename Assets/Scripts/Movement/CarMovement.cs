@@ -7,12 +7,21 @@ public class CarMovement : MovementBase
     public List<AxleInfo> axleInfos; // the information about each individual axle
     public float maxMotorTorque; // maximum torque the motor can apply to wheel
     public float maxSteeringAngle; // maximum steer angle the wheel can have
+    public GameObject carObject; // paint it black
 
     private float beginTime;
 
     private void Awake()
     {
         beginTime = Time.time;
+
+        var rb = GetComponent<Rigidbody>();
+        rb.AddForce(new Vector3(0, 0, 500000));
+    }
+
+    private void Start()
+    {
+        carObject.SetColor(Color.gray);
     }
 
     public void FixedUpdate()
@@ -26,8 +35,7 @@ public class CarMovement : MovementBase
             isAlive = false;
             return;
         }
-
-        var torqueMultiplier = (Time.time - beginTime < 2) ? 1 
+        var torqueMultiplier = (Time.time - beginTime < 2) ? 1 // || (playerNumber > 0)
             : (Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber));
 
         float motor = maxMotorTorque * torqueMultiplier;
