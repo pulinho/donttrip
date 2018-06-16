@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    private static int currentScene = 0;
+
     public GameObject playerPrefab;
     public PlayerManager[] players;
     public CameraController cameraController;
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(++currentScene % 2);
         }
     }
     
@@ -70,7 +72,7 @@ public class GameManager : MonoBehaviour {
         yield return StartCoroutine(RoundPlaying());
         yield return StartCoroutine(RoundEnding());
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(++currentScene % 2);
     }
 
     private IEnumerator RoundStarting()
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator RoundPlaying()
     {
-        while (CountPlayersAlive() > 0) // !!!
+        while (CountPlayersAlive() > 0)
         {
             yield return null;
         }

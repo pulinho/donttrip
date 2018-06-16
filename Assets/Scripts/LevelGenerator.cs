@@ -81,7 +81,7 @@ public class LevelGenerator : MonoBehaviour {
         }
 
         instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
-        instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
+        instance.SetColor(Random.ColorHSV(0, 1, 0.1f, 0.2f, 0.9f, 1, 1, 1));
 
         var rb = instance.AddComponent<Rigidbody>();
         rb.mass = scale;

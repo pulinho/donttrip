@@ -5,10 +5,10 @@ public class CameraController : MonoBehaviour
     [HideInInspector] public Transform[] targets;
     public float dampTime = 0.2f;
 
-    private Vector3 offset;
+    protected Vector3 offset;
     private Vector3 moveVelocity;
-    private Vector3 averagePlayerPosition;
-    private float maxPlayerDistance;
+    protected Vector3 averagePlayerPosition;
+    protected float maxPlayerDistance;
 
     private void FixedUpdate()
     {
@@ -23,9 +23,9 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, averagePlayerPosition + offset, ref moveVelocity, dampTime);
     }
 
-    private void Zoom()
+    virtual protected void Zoom()
     {
-        maxPlayerDistance = 20.0f;
+        maxPlayerDistance = 10.0f;
 
         foreach(var target in targets)
         {
@@ -43,10 +43,10 @@ public class CameraController : MonoBehaviour
         offset = (new Vector3(0, 2.1f, -1.4f) * maxPlayerDistance);
     }
 
-    private void FindAveragePosition()
+    virtual protected void FindAveragePosition()
     {
-        Vector3 minVector = new Vector3(100, 0, 100);
-        Vector3 maxVector = new Vector3(-100, 0, -100);
+        Vector3 minVector = new Vector3(1000000000, 0, 1000000000);
+        Vector3 maxVector = new Vector3(-1000000000, 0, -1000000000);
 
         foreach(var target in targets)
         {

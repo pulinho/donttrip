@@ -14,8 +14,13 @@ public class CarMovement : MovementBase
         {
             return;
         }
+        if (transform.position.y < -2.0f)
+        {
+            isAlive = false;
+            return;
+        }
 
-        float motor = maxMotorTorque * Input.GetAxis("RightStickVertical" + playerNumber); // "Fire"
+        float motor = maxMotorTorque * (Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber));
         float steering = maxSteeringAngle * Input.GetAxis("LeftStickHorizontal" + playerNumber);
 
         foreach (AxleInfo axleInfo in axleInfos)
