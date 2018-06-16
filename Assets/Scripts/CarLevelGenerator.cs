@@ -20,7 +20,7 @@ public class CarLevelGenerator : MonoBehaviour {
         var bestPlayerZ = 0.0f;
         foreach(var player in gm.players)
         {
-            if(player.instance.transform.position.z > bestPlayerZ)
+            if(player.isAlive && player.instance.transform.position.z > bestPlayerZ)
             {
                 bestPlayerZ = player.instance.transform.position.z;
             }

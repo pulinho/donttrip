@@ -8,6 +8,13 @@ public class CarMovement : MovementBase
     public float maxMotorTorque; // maximum torque the motor can apply to wheel
     public float maxSteeringAngle; // maximum steer angle the wheel can have
 
+    private float beginTime;
+
+    private void Awake()
+    {
+        beginTime = Time.time;
+    }
+
     public void FixedUpdate()
     {
         if(!isAlive)
@@ -20,7 +27,10 @@ public class CarMovement : MovementBase
             return;
         }
 
-        float motor = maxMotorTorque * (Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber));
+        var torqueMultiplier = (Time.time - beginTime < 2) ? 1 
+            : (Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber));
+
+        float motor = maxMotorTorque * torqueMultiplier;
         float steering = maxSteeringAngle * Input.GetAxis("LeftStickHorizontal" + playerNumber);
 
         foreach (AxleInfo axleInfo in axleInfos)
