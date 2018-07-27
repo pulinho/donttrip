@@ -12,6 +12,8 @@ public class CarLevelGenerator : MonoBehaviour {
     private int newestRow = 15;
     private int newestRowShift = 0;
 
+    private Texture2D tex;
+
     private void FixedUpdate()
     {
         var lastRow = tileRowList[0];
@@ -43,6 +45,8 @@ public class CarLevelGenerator : MonoBehaviour {
 
     private void Awake()
     {
+        tex = Resources.Load("Textures/cm2") as Texture2D;
+
         ground.transform.Rotate(Vector3.up * Random.Range(-10f, 10f));
 
         tileRowList = new List<GameObject[]>();
@@ -106,10 +110,9 @@ public class CarLevelGenerator : MonoBehaviour {
         var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Sphere : PrimitiveType.Cube);
         instance.transform.parent = ground.transform;
         instance.transform.eulerAngles = ground.transform.eulerAngles;
-
         instance.transform.localPosition = new Vector3(Random.Range(-14f, 14f) + newestRowShift * 5, 2, row*10 + Random.Range(-4f, 4f));
 
-        var scale = Random.Range(1f, 2.5f);
+        var scale = Random.Range(5f, 12.5f);
         if (type < 2)
         {
             instance.transform.localScale = new Vector3(scale, scale, scale);
@@ -120,7 +123,9 @@ public class CarLevelGenerator : MonoBehaviour {
         }
 
         instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
-        instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
+        //instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
+        instance.GetComponent<Renderer>().material.mainTexture = tex;
+        instance.AddComponent(typeof(AnimateTiledTexture));
 
         var rb = instance.AddComponent<Rigidbody>();
         rb.mass = scale * 500;

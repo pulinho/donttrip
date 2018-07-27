@@ -8,8 +8,12 @@ public class LevelGenerator : MonoBehaviour {
     public Transform directionalLight;
     public GameObject[] gunPrefab;
 
+    private Texture2D tex;
+
     private void Awake()
     {
+        tex = Resources.Load("Textures/cm2") as Texture2D;
+
         var groundScaleVec = new Vector3(Random.Range(30f, 50f), 1, 30);
         ground.transform.localScale = groundScaleVec;
 
@@ -54,13 +58,13 @@ public class LevelGenerator : MonoBehaviour {
     {
         for (int i = 0; i < 15; i++)
         {
-            PlaceRandomPrimitive(i % 3);
+            PlaceRandomPrimitive(i % 2); //3
         }
     }
 
     private void PlaceRandomPrimitive(int type)
     {
-        var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Sphere : PrimitiveType.Cube);
+        var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Cylinder : PrimitiveType.Capsule); //
 
         Vector3 position;
         do {
@@ -81,7 +85,9 @@ public class LevelGenerator : MonoBehaviour {
         }
 
         instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
-        instance.SetColor(Random.ColorHSV(0, 1, 0.1f, 0.2f, 0.9f, 1, 1, 1));
+        //instance.SetColor(Random.ColorHSV(0, 1, 0.1f, 0.2f, 0.9f, 1, 1, 1));
+        instance.GetComponent<Renderer>().material.mainTexture = tex;
+        instance.AddComponent(typeof(AnimateTiledTexture));
 
         var rb = instance.AddComponent<Rigidbody>();
         rb.mass = scale;
