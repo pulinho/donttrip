@@ -87,8 +87,18 @@ class PolygonTile : MonoBehaviour
         }
 
 
-        var tex = Resources.Load("Textures/cm2") as Texture2D;
+        /*var tex = Resources.Load("Textures/tilted_squares") as Texture2D;
         gameObject.GetComponent<Renderer>().material.mainTexture = tex;
-        gameObject.AddComponent(typeof(AnimateTiledTexture));
+        var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
+        anim.rows = 4;
+        anim.columns = 4;
+        anim.frameCount = 16;*/
+
+        var tex = Resources.Load("Textures/hyperdonut") as Texture2D;
+        gameObject.GetComponent<Renderer>().material.mainTexture = tex;
+        var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
+        anim.rows = 5;
+        anim.columns = 5;
+        anim.frameCount = 20;
     }
 }

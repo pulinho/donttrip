@@ -54,8 +54,8 @@ class AnimateTiledTexture : MonoBehaviour
 
                 for (int j = 0; j <= columns - 1; j++) // x
                 {
-                    //index++;
-                    //if (index >= frameCount) break;
+                    index++;
+                    if (index >= frameCount) break;
                     ///
 
                     x = (float)j / columns;
@@ -65,9 +65,9 @@ class AnimateTiledTexture : MonoBehaviour
                     GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
                     yield return new WaitForSeconds(1f / framesPerSecond);
                 }
-                //if (index >= frameCount) break; ///
+                if (index >= frameCount) break; ///
             }
-            //if (index >= frameCount) index = 0;
+            if (index >= frameCount) index = 0;
 
             /*if (RunOnce)
             {

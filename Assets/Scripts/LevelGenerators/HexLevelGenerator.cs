@@ -44,7 +44,7 @@ public class HexLevelGenerator : MonoBehaviour
     {
         for (int i = -2; i < 3; i++)
         {
-            for (int j = -2; j < 3; j++)
+            for (int j = -2; j < ((i % 2 == 0) ? 2 : 3); j++)
             {
                 var shift = (i % 2 == 0) ? 4.33f : 0f;
                 Instantiate(tilePrefab, new Vector3(j * 8.66f + shift, 0, i * 7.5f), Quaternion.identity);
