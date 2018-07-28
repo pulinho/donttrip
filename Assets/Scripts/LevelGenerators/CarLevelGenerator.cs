@@ -45,7 +45,7 @@ public class CarLevelGenerator : MonoBehaviour {
 
     private void Awake()
     {
-        tex = Resources.Load("Textures/cm2") as Texture2D;
+        tex = Resources.Load("Textures/three_lines") as Texture2D;
 
         ground.transform.Rotate(Vector3.up * Random.Range(-10f, 10f));
 

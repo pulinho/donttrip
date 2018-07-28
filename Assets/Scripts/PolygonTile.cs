@@ -94,11 +94,15 @@ class PolygonTile : MonoBehaviour
         anim.columns = 4;
         anim.frameCount = 16;*/
 
-        var tex = Resources.Load("Textures/hyperdonut") as Texture2D;
+        /*var tex = Resources.Load("Textures/hyperdonut") as Texture2D;
         gameObject.GetComponent<Renderer>().material.mainTexture = tex;
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
         anim.rows = 5;
         anim.columns = 5;
-        anim.frameCount = 20;
+        anim.frameCount = 20;*/
+
+        var tex = Resources.Load("Textures/three_lines") as Texture2D;
+        gameObject.GetComponent<Renderer>().material.mainTexture = tex;
+        var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
     }
 }
