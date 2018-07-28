@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarLevelGenerator : MonoBehaviour {
-
+public class HexCarLevelGenerator : MonoBehaviour
+{
     public GameManager gm;
     public Transform ground;
-    
+    public GameObject tilePrefab;
+
     private List<GameObject[]> tileRowList;
 
-    private int newestRow = 15;
-    private int newestRowShift = 0;
+    private int newestRow = 20;
+    private int newestRowShift = 1;
 
     private Texture2D tex;
 
@@ -20,15 +21,15 @@ public class CarLevelGenerator : MonoBehaviour {
         var lastRowZ = lastRow[0].transform.position.z;
 
         var bestPlayerZ = 0.0f;
-        foreach(var player in gm.players)
+        foreach (var player in gm.players)
         {
-            if(player.isAlive && player.instance.transform.position.z > bestPlayerZ)
+            if (player.isAlive && player.instance.transform.position.z > bestPlayerZ)
             {
                 bestPlayerZ = player.instance.transform.position.z;
             }
         }
-        
-        if(lastRowZ < bestPlayerZ - 35)
+
+        if (lastRowZ < bestPlayerZ - 35)
         {
             for (int i = 0; i < lastRow.Length; i++)
             {
@@ -37,7 +38,7 @@ public class CarLevelGenerator : MonoBehaviour {
                 rb.AddTorque(Random.insideUnitSphere * 100000);
             }
             tileRowList.RemoveAt(0);
-            
+
             PlaceRowOfTiles(newestRow);
             newestRow++;
         }
@@ -63,16 +64,17 @@ public class CarLevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            tilesInRow[i] = PlaceTile(new Vector3(i*10-10 + newestRowShift*5, 0f, row*10), row % 4);
+            tilesInRow[i] = PlaceTile(new Vector3(i * 8.66f - 10f + newestRowShift * 4.33f, 0f, row * 7.5f), row % 4);
         }
 
         tileRowList.Add(tilesInRow);
 
-        if(row < 3)
+        if (row < 5)
         {
+            newestRowShift += (row % 2) * 2 - 1;
             return;
         }
-        newestRowShift += Random.Range(-1, 3) % 2;
+        newestRowShift += Random.Range(2, 4) % 3 - 1;
 
         var randomObstacle = Random.Range(0, 6);
         if (randomObstacle < 2)
@@ -87,21 +89,21 @@ public class CarLevelGenerator : MonoBehaviour {
 
     private GameObject PlaceTile(Vector3 position, int type)
     {
-        var instance = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var instance = Instantiate(tilePrefab, new Vector3(), Quaternion.identity);//GameObject.CreatePrimitive(PrimitiveType.Cube);
         instance.transform.parent = ground.transform;
         instance.transform.eulerAngles = ground.transform.eulerAngles;
 
-        instance.transform.localScale = new Vector3(10, 1, 10);
+        instance.transform.localScale = new Vector3(5f, 1, 5f);
         instance.transform.localPosition = position;
 
-        instance.SetColor(Random.ColorHSV(type* 0.25f, type*0.25f + 0.05f, 0.1f, 0.2f, 0.9f, 1, 1, 1));
+        //instance.SetColor(Random.ColorHSV(type* 0.25f, type*0.25f + 0.05f, 0.1f, 0.2f, 0.9f, 1, 1, 1));
 
-        if(position.z > 50 && Random.Range(0, 30) == 0)
+        if (position.z > 50 && Random.Range(0, 30) == 0)
         {
             var axis = (Random.Range(0, 2) == 0) ? Vector3.forward : Vector3.right;
             instance.transform.Rotate(axis * Random.Range(-15f, 15f));
         }
-        
+
         return instance;
     }
 
@@ -110,7 +112,7 @@ public class CarLevelGenerator : MonoBehaviour {
         var instance = GameObject.CreatePrimitive((type == 0) ? PrimitiveType.Sphere : PrimitiveType.Cube);
         instance.transform.parent = ground.transform;
         instance.transform.eulerAngles = ground.transform.eulerAngles;
-        instance.transform.localPosition = new Vector3(Random.Range(-14f, 14f) + newestRowShift * 5, 2, row*10 + Random.Range(-4f, 4f));
+        instance.transform.localPosition = new Vector3(Random.Range(-8f, 8f) + newestRowShift * 4.33f, 2, row * 7.5f + Random.Range(-2f, 2f));
 
         var scale = Random.Range(2f, 5f);
         if (type < 2)

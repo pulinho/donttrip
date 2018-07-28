@@ -11,3 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/cars.unity
     guid: 66a27760ee1216640ac39240fe0e76ee
+  - enabled: 1
+    path: Assets/Scenes/polycars.unity
+    guid: ef75af967833edf4cbae831851e3d926
+  - enabled: 1
+    path: Assets/Scenes/polygons.unity
+    guid: ace4e976598e9bf448a1520f26d68425
+  m_configObjects: {}

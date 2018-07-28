@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(++currentScene % 2);
+            SceneManager.LoadScene(++currentScene % 4);
         }
     }
     
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
         yield return StartCoroutine(RoundPlaying());
         yield return StartCoroutine(RoundEnding());
 
-        SceneManager.LoadScene(++currentScene % 2);
+        SceneManager.LoadScene(++currentScene % 4);
     }
 
     private IEnumerator RoundStarting()
