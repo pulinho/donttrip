@@ -39,6 +39,8 @@ public class CarMovement : MovementBase
             : (Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber));
 
         float motor = maxMotorTorque * torqueMultiplier;
+
+        //float steering = maxSteeringAngle * GameManager.gyroTilt * 2;
         float steering = maxSteeringAngle * Input.GetAxis("LeftStickHorizontal" + playerNumber);
 
         foreach (AxleInfo axleInfo in axleInfos)

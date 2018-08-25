@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        Input.gyro.enabled = true;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         playersAlive = players.Length;
 
         SpawnAllPlayers();
@@ -51,6 +55,9 @@ public class GameManager : MonoBehaviour {
                 Instantiate(playerPrefab, players[i].spawnPoint.position, players[i].spawnPoint.rotation) as GameObject;
             players[i].playerNumber = i;
             players[i].Setup();
+
+            var rb = players[i].instance.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.forward * 8000);
         }
     }
 
@@ -62,8 +69,21 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(++currentScene % 4);
+            SceneManager.LoadScene(0); // (++currentScene % 4);
         }
+        UpdateGyroTilt();
+    }
+
+    public Transform phoneDummy;
+    public static float gyroTilt;
+
+    private void UpdateGyroTilt()
+    {
+        var gyroEuler = Input.gyro.attitude.eulerAngles;
+        phoneDummy.transform.eulerAngles = new Vector3(-1.0f * gyroEuler.x, -1.0f * gyroEuler.y, gyroEuler.z);
+
+        var upVec = phoneDummy.transform.InverseTransformDirection(-1f * Vector3.forward);
+        gyroTilt = upVec.x * -1;
     }
     
     private IEnumerator GameLoop()

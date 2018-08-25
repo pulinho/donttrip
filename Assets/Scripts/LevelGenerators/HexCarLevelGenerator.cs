@@ -6,19 +6,20 @@ public class HexCarLevelGenerator : MonoBehaviour
 {
     public GameManager gm;
     public Transform ground;
-    public GameObject tilePrefab;
+    public GameObject[] tilePrefabs;
 
     private List<GameObject[]> tileRowList;
 
     private int newestRow = 20;
     private int newestRowShift = 1;
 
-    private Texture2D tex;
+    private Texture2D texSphere;
+    private Texture2D texCube;
 
     private void FixedUpdate()
     {
         var lastRow = tileRowList[0];
-        var lastRowZ = lastRow[0].transform.position.z;
+        var lastRowZ = lastRow[1].transform.position.z;
 
         var bestPlayerZ = 0.0f;
         foreach (var player in gm.players)
@@ -33,6 +34,8 @@ public class HexCarLevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < lastRow.Length; i++)
             {
+                var tile = lastRow[i];
+                if (tile == null) continue;
                 var rb = lastRow[i].AddComponent<Rigidbody>(); // todo: pozdeji znicit uplne
                 rb.mass = 1000;
                 rb.AddTorque(Random.insideUnitSphere * 100000);
@@ -46,15 +49,26 @@ public class HexCarLevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        tex = Resources.Load("Textures/cm2") as Texture2D;
+        texSphere = Resources.Load("Textures/cm2") as Texture2D;
+        texCube = Resources.Load("Textures/tilted_squares") as Texture2D;
 
         ground.transform.Rotate(Vector3.up * Random.Range(-10f, 10f));
 
         tileRowList = new List<GameObject[]>();
 
-        for (int i = 0; i < newestRow; i++)
+        /*for (int i = 0; i < newestRow; i++)
         {
             PlaceRowOfTiles(i);
+        }*/
+        StartCoroutine(PlaceInitialTiles(newestRow));
+    }
+
+    private IEnumerator PlaceInitialTiles(int rowCount)
+    {
+        for (int i = 0; i < rowCount; i++)
+        {
+            PlaceRowOfTiles(i);
+            yield return new WaitForSeconds(0.06f);
         }
     }
 
@@ -64,7 +78,8 @@ public class HexCarLevelGenerator : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            tilesInRow[i] = PlaceTile(new Vector3(i * 8.66f - 10f + newestRowShift * 4.33f, 0f, row * 7.5f), row % 4);
+            if (row > 5 && i != 1 && Random.Range(0, 12) == 0) continue;
+            tilesInRow[i] = PlaceTile(new Vector3(i * 8.66f - 10f + newestRowShift * 4.33f, 0f, row * 7.5f), (row / 20) % 3);
         }
 
         tileRowList.Add(tilesInRow);
@@ -76,12 +91,12 @@ public class HexCarLevelGenerator : MonoBehaviour
         }
         newestRowShift += Random.Range(2, 4) % 3 - 1;
 
-        var randomObstacle = Random.Range(0, 6);
+        var randomObstacle = Random.Range(0, 20);
         if (randomObstacle < 2)
         {
             PlaceObstacleRandomly(row, randomObstacle);
         }
-        if (randomObstacle > 2)
+        if (randomObstacle > 16)
         {
             PlaceObstacleRandomly(row, Random.Range(0, 6));
         }
@@ -89,7 +104,9 @@ public class HexCarLevelGenerator : MonoBehaviour
 
     private GameObject PlaceTile(Vector3 position, int type)
     {
-        var instance = Instantiate(tilePrefab, new Vector3(), Quaternion.identity);//GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var tile = tilePrefabs[type % tilePrefabs.Length];
+
+        var instance = Instantiate(tile, new Vector3(), Quaternion.identity);//GameObject.CreatePrimitive(PrimitiveType.Cube);
         instance.transform.parent = ground.transform;
         instance.transform.eulerAngles = ground.transform.eulerAngles;
 
@@ -126,10 +143,22 @@ public class HexCarLevelGenerator : MonoBehaviour
 
         instance.transform.Rotate(Vector3.up * Random.Range(0f, 360f));
         //instance.SetColor(Random.ColorHSV(0, 1, 0, 0.1f, 0.9f, 1, 1, 1));
-        instance.GetComponent<Renderer>().material.mainTexture = tex;
-        instance.AddComponent(typeof(AnimateTiledTexture));
+
+        if (type == 0)
+        {
+            instance.GetComponent<Renderer>().material.mainTexture = texSphere;
+            instance.AddComponent(typeof(AnimateTiledTexture));
+        }
+        else
+        {
+            instance.GetComponent<Renderer>().material.mainTexture = texCube;
+            var anim = instance.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
+            anim.rows = 4;
+            anim.columns = 4;
+            anim.frameCount = 16;
+        }
 
         var rb = instance.AddComponent<Rigidbody>();
-        rb.mass = scale * 500;
+        rb.mass = scale * 3;
     }
 }

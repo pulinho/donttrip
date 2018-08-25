@@ -6,6 +6,12 @@ class PolygonTile : MonoBehaviour
     public int sideCount = 6;
     public float sideSize = 1f;
     public float height = 0.1f;
+    public PhysicMaterial mat;
+
+    public Texture2D texture;
+    public int texRows = 8;
+    public int texCols = 8;
+    public int texFrameCount = 64;
 
     private void Awake()
     {
@@ -82,7 +88,9 @@ class PolygonTile : MonoBehaviour
                 go.transform.localPosition = new Vector3();
                 go.transform.localScale = new Vector3(1.73205f, height, 1);
                 go.transform.localRotation = Quaternion.Euler(0, 60 * i, 0);
+
                 var boxc = go.AddComponent<BoxCollider>();
+                //boxc.material = mat;
             }
         }
 
@@ -101,8 +109,14 @@ class PolygonTile : MonoBehaviour
         anim.columns = 5;
         anim.frameCount = 20;*/
 
-        var tex = Resources.Load("Textures/three_lines") as Texture2D;
+        /*var tex = Resources.Load("Textures/three_lines") as Texture2D;
         gameObject.GetComponent<Renderer>().material.mainTexture = tex;
+        var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;*/
+        
+        gameObject.GetComponent<Renderer>().material.mainTexture = texture;
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
+        anim.rows = texRows;
+        anim.columns = texCols;
+        anim.frameCount = texFrameCount;
     }
 }
