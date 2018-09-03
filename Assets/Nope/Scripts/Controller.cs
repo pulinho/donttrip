@@ -25,13 +25,13 @@ public class Controller : MonoBehaviour {
             SceneManager.LoadScene(0);
         }
 
-        /*float forward = Input.GetAxis ("Fire0");
+        float forward = Input.GetAxis("Fire0");
         float backward = Input.GetAxis("Brake0");
-        float steer = Input.GetAxis ("LeftStickHorizontal0");*/
+        float steer = Input.GetAxis ("LeftStickHorizontal0");
 
-        float forward = (Input.touchCount > 0) ? -1 : 1;
+        /*float forward = (Input.touchCount > 0) ? -1 : 1;
         float backward = 0.0f;
-        float steer = GameManager.gyroTilt;
+        float steer = GameManager.gyroTilt;*/
 
         // Debug.Log(rb.velocity.magnitude); //sqrMagnitude faster
 
