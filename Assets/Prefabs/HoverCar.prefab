@@ -212,7 +212,7 @@ Rigidbody:
   m_Mass: 70
   m_Drag: 3
   m_AngularDrag: 4
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -252,4 +252,4 @@ MonoBehaviour:
   - {fileID: 1763641423487088}
   forwardAcceleration: 8000
   reverseAcceleration: 4000
-  turnStrength: 1000
+  turnStrength: 200
