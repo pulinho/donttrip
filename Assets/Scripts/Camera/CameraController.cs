@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Kino;
 
 public class CameraController : MonoBehaviour
 {
@@ -9,6 +10,20 @@ public class CameraController : MonoBehaviour
     private Vector3 moveVelocity;
     protected Vector3 averagePlayerPosition;
     protected float maxPlayerDistance;
+
+
+    private bool isGlitching = false;
+    void Update()
+    {
+        if (Input.GetButton("Jump0"))
+        {
+            GetComponent<Datamosh>().Glitch();
+        }
+        else if (Input.GetButton("DropGun0"))
+        {
+            GetComponent<Datamosh>().Reset();
+        }
+    }
 
     private void FixedUpdate()
     {

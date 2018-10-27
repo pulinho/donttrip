@@ -100,7 +100,7 @@ MonoBehaviour:
   height: 0.2
   mat: {fileID: 13400000, guid: 7826f9e1423def440939153a8588dd26, type: 2}
   texture: {fileID: 2800000, guid: 30e779ef213588d468f98b7ae7cbcbb1, type: 3}
-  shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
+  shader: {fileID: 4800000, guid: 998cec7a45d274e3995fbccf2c4480bf, type: 3}
   texRows: 8
   texCols: 8
   texFrameCount: 64
