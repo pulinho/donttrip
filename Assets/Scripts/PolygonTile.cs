@@ -9,6 +9,7 @@ class PolygonTile : MonoBehaviour
     public PhysicMaterial mat;
 
     public Texture2D texture;
+    public Shader shader;
     public int texRows = 8;
     public int texCols = 8;
     public int texFrameCount = 64;
@@ -114,6 +115,7 @@ class PolygonTile : MonoBehaviour
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;*/
         
         gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+        // gameObject.GetComponent<Renderer>().material.shader = shader;
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
         anim.rows = texRows;
         anim.columns = texCols;

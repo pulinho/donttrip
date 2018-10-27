@@ -37,7 +37,7 @@ public class HoverCarController : MonoBehaviour
     void Update()
     {
         thrust = 0.0f;
-        float acceleration = Input.GetAxis("RightStickVertical0");
+        float acceleration = Input.GetAxis("Fire0") - Input.GetAxis("Brake0");
         if (acceleration > deadZone)
             thrust = acceleration * forwardAcceleration;
         else if (acceleration < -deadZone)
