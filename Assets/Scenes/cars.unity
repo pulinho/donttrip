@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0.44824904, g: 0.49827605, b: 0.57558316, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 0.5
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -116,9 +116,9 @@ NavMeshSettings:
 --- !u!1 &109549552
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 109549554}
   - component: {fileID: 109549553}
@@ -132,7 +132,7 @@ GameObject:
 --- !u!114 &109549553
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 109549552}
   m_Enabled: 1
@@ -141,15 +141,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
-  playerNumber: 0
   instance: {fileID: 0}
-  gunPoint: {fileID: 0}
   playerColor: {r: 1, g: 1, b: 0, a: 0}
   spawnPoint: {fileID: 1583525423}
 --- !u!4 &109549554
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 109549552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -162,15 +160,16 @@ Transform:
 --- !u!1 &211912306
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 211912310}
   - component: {fileID: 211912309}
   - component: {fileID: 211912308}
   - component: {fileID: 211912307}
   - component: {fileID: 211912311}
+  - component: {fileID: 211912312}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -181,27 +180,31 @@ GameObject:
 --- !u!81 &211912307
 AudioListener:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211912306}
   m_Enabled: 1
 --- !u!124 &211912308
 Behaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211912306}
   m_Enabled: 1
 --- !u!20 &211912309
 Camera:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211912306}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.4705882, g: 0.4705882, b: 0.4705882, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -231,7 +234,7 @@ Camera:
 --- !u!4 &211912310
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211912306}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
@@ -244,7 +247,7 @@ Transform:
 --- !u!114 &211912311
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211912306}
   m_Enabled: 1
@@ -254,12 +257,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets: []
   dampTime: 0.2
+--- !u!114 &211912312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 211912306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbbfa0d5bee14ea1bb3a8762969e899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blockSize: 16
+  _entropy: 0.05
+  _noiseContrast: 1
+  _velocityScale: 0.8
+  _diffusion: 0.4
+  _shader: {fileID: 4800000, guid: 998cec7a45d274e3995fbccf2c4480bf, type: 3}
 --- !u!1 &254065853
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 254065855}
   - component: {fileID: 254065854}
@@ -273,7 +293,7 @@ GameObject:
 --- !u!108 &254065854
 Light:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 254065853}
   m_Enabled: 1
@@ -300,6 +320,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
@@ -309,7 +330,7 @@ Light:
 --- !u!4 &254065855
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 254065853}
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
@@ -322,9 +343,9 @@ Transform:
 --- !u!1 &258537383
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 258537384}
   m_Layer: 0
@@ -337,7 +358,7 @@ GameObject:
 --- !u!4 &258537384
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 258537383}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -350,9 +371,9 @@ Transform:
 --- !u!1 &357031222
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 357031223}
   m_Layer: 0
@@ -365,7 +386,7 @@ GameObject:
 --- !u!4 &357031223
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 357031222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -382,9 +403,9 @@ Transform:
 --- !u!1 &889535192
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 889535194}
   - component: {fileID: 889535193}
@@ -398,7 +419,7 @@ GameObject:
 --- !u!114 &889535193
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 889535192}
   m_Enabled: 1
@@ -406,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4899b4dfd86b24747b3be3f3b7c9bf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1345154596675170, guid: 56c05665acc6e904baf8959eb098c096,
+  playerPrefab: {fileID: 1014274704663558, guid: 74e8c9c1cfac44f4baad954bb2a0b3ad,
     type: 2}
   players:
   - {fileID: 1569360253}
@@ -417,7 +438,7 @@ MonoBehaviour:
 --- !u!4 &889535194
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 889535192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -430,9 +451,9 @@ Transform:
 --- !u!1 &979085054
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 979085055}
   m_Layer: 0
@@ -445,7 +466,7 @@ GameObject:
 --- !u!4 &979085055
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 979085054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -458,9 +479,9 @@ Transform:
 --- !u!1 &1360181131
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1360181133}
   - component: {fileID: 1360181132}
@@ -474,7 +495,7 @@ GameObject:
 --- !u!114 &1360181132
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360181131}
   m_Enabled: 1
@@ -483,15 +504,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
-  playerNumber: 0
   instance: {fileID: 0}
-  gunPoint: {fileID: 0}
   playerColor: {r: 0, g: 1, b: 1, a: 0}
   spawnPoint: {fileID: 979085055}
 --- !u!4 &1360181133
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360181131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -504,9 +523,9 @@ Transform:
 --- !u!1 &1379010210
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1379010211}
   m_Layer: 0
@@ -519,7 +538,7 @@ GameObject:
 --- !u!4 &1379010211
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1379010210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -532,9 +551,9 @@ Transform:
 --- !u!1 &1425924865
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1425924867}
   - component: {fileID: 1425924866}
@@ -548,7 +567,7 @@ GameObject:
 --- !u!114 &1425924866
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1425924865}
   m_Enabled: 1
@@ -561,7 +580,7 @@ MonoBehaviour:
 --- !u!4 &1425924867
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1425924865}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -574,9 +593,9 @@ Transform:
 --- !u!1 &1569360252
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1569360254}
   - component: {fileID: 1569360253}
@@ -590,7 +609,7 @@ GameObject:
 --- !u!114 &1569360253
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1569360252}
   m_Enabled: 1
@@ -599,15 +618,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
-  playerNumber: 0
   instance: {fileID: 0}
-  gunPoint: {fileID: 0}
   playerColor: {r: 0, g: 1, b: 0, a: 0}
   spawnPoint: {fileID: 1379010211}
 --- !u!4 &1569360254
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1569360252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -620,9 +637,9 @@ Transform:
 --- !u!1 &1583525422
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1583525423}
   m_Layer: 0
@@ -635,7 +652,7 @@ GameObject:
 --- !u!4 &1583525423
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1583525422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -648,9 +665,9 @@ Transform:
 --- !u!1 &1973507615
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1973507617}
   - component: {fileID: 1973507616}
@@ -664,7 +681,7 @@ GameObject:
 --- !u!114 &1973507616
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973507615}
   m_Enabled: 1
@@ -673,15 +690,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
-  playerNumber: 0
   instance: {fileID: 0}
-  gunPoint: {fileID: 0}
   playerColor: {r: 1, g: 0, b: 1, a: 0}
   spawnPoint: {fileID: 258537384}
 --- !u!4 &1973507617
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973507615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}

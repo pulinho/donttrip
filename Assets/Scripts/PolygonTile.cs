@@ -6,10 +6,9 @@ class PolygonTile : MonoBehaviour
     public int sideCount = 6;
     public float sideSize = 1f;
     public float height = 0.1f;
-    public PhysicMaterial mat;
+    // public PhysicMaterial mat;
 
     public Texture2D texture;
-    public Shader shader;
     public int texRows = 8;
     public int texCols = 8;
     public int texFrameCount = 64;
@@ -91,7 +90,7 @@ class PolygonTile : MonoBehaviour
                 go.transform.localRotation = Quaternion.Euler(0, 60 * i, 0);
 
                 var boxc = go.AddComponent<BoxCollider>();
-                //boxc.material = mat;
+                // boxc.material = mat;
             }
         }
 
@@ -115,7 +114,6 @@ class PolygonTile : MonoBehaviour
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;*/
         
         gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-        // gameObject.GetComponent<Renderer>().material.shader = shader;
         var anim = gameObject.AddComponent(typeof(AnimateTiledTexture)) as AnimateTiledTexture;
         anim.rows = texRows;
         anim.columns = texCols;
