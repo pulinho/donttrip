@@ -128,20 +128,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &109549553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 109549552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
+  playerNumber: 0
   instance: {fileID: 0}
+  gunPoint: {fileID: 0}
   playerColor: {r: 1, g: 1, b: 0, a: 0}
   spawnPoint: {fileID: 1583525423}
 --- !u!4 &109549554
@@ -269,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockSize: 16
-  _entropy: 0.05
+  _entropy: 0.4
   _noiseContrast: 1
   _velocityScale: 0.8
   _diffusion: 0.4
@@ -401,6 +403,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &561640165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561640166}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &561640166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 561640165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6274704, y: 2.676566, z: -0.91152954}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &791125320
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,10 +507,8 @@ MonoBehaviour:
     type: 2}
   players:
   - {fileID: 1569360253}
-  - {fileID: 1360181132}
-  - {fileID: 1973507616}
-  - {fileID: 109549553}
   cameraController: {fileID: 211912311}
+  phoneDummy: {fileID: 1332062492}
 --- !u!4 &889535194
 Transform:
   m_ObjectHideFlags: 0
@@ -609,6 +637,34 @@ Transform:
   m_Father: {fileID: 357031223}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1332062491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1332062492}
+  m_Layer: 0
+  m_Name: PhoneDummy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1332062492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1332062491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.65388, y: -0.97863084, z: 6.202687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1360181131
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,20 +680,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1360181132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360181131}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
+  playerNumber: 0
   instance: {fileID: 0}
+  gunPoint: {fileID: 0}
   playerColor: {r: 0, g: 1, b: 1, a: 0}
   spawnPoint: {fileID: 979085055}
 --- !u!4 &1360181133
@@ -709,9 +767,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
+  playerNumber: 0
   instance: {fileID: 0}
-  playerColor: {r: 0, g: 1, b: 0, a: 0}
-  spawnPoint: {fileID: 1379010211}
+  gunPoint: {fileID: 0}
+  playerColor: {r: 1, g: 1, b: 1, a: 0}
+  spawnPoint: {fileID: 258537384}
 --- !u!4 &1569360254
 Transform:
   m_ObjectHideFlags: 0
@@ -768,20 +828,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1973507616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973507615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2c68345e0f1b0641a36eef40a709e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 0
+  playerNumber: 0
   instance: {fileID: 0}
+  gunPoint: {fileID: 0}
   playerColor: {r: 1, g: 0, b: 1, a: 0}
   spawnPoint: {fileID: 258537384}
 --- !u!4 &1973507617

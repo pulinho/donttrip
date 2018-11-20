@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,12 +12,19 @@ public class GameManager : MonoBehaviour {
     public CameraController cameraController;
 
     private int playersAlive = 0;
+    private bool firstBlood = false;
 
     private readonly WaitForSeconds endWait = new WaitForSeconds(2);
 
     private void Start()
     {
+        Input.gyro.enabled = true;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         playersAlive = players.Length;
+
+        SpawnAllPlayers();
+        SetCameraTargets();
         
         StartCoroutine(GameLoop());
     }
@@ -45,11 +53,11 @@ public class GameManager : MonoBehaviour {
         {
             players[i].instance =
                 Instantiate(playerPrefab, players[i].spawnPoint.position, players[i].spawnPoint.rotation) as GameObject;
-            players[i].instance.GetComponent<HoverCarController>().playerNumber = i;
+            players[i].playerNumber = i;
             players[i].Setup();
 
-            // var rb = players[i].instance.GetComponent<Rigidbody>();
-            // rb.AddForce(Vector3.forward * 800000);
+            var rb = players[i].instance.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.forward * 8000);
         }
     }
 
@@ -61,8 +69,21 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(++currentScene % 2);
+            SceneManager.LoadScene(0); // (++currentScene % 4);
         }
+        UpdateGyroTilt();
+    }
+
+    public Transform phoneDummy;
+    public static float gyroTilt;
+
+    private void UpdateGyroTilt()
+    {
+        var gyroEuler = Input.gyro.attitude.eulerAngles;
+        phoneDummy.transform.eulerAngles = new Vector3(-1.0f * gyroEuler.x, -1.0f * gyroEuler.y, gyroEuler.z);
+
+        var upVec = phoneDummy.transform.InverseTransformDirection(-1f * Vector3.forward);
+        gyroTilt = upVec.x * -1;
     }
     
     private IEnumerator GameLoop()
@@ -71,15 +92,12 @@ public class GameManager : MonoBehaviour {
         yield return StartCoroutine(RoundPlaying());
         yield return StartCoroutine(RoundEnding());
 
-        SceneManager.LoadScene(++currentScene % 2);
+        SceneManager.LoadScene(++currentScene % 4);
     }
 
     private IEnumerator RoundStarting()
     {
-        SpawnAllPlayers();
-        SetCameraTargets();
-        yield return new WaitForSeconds(1);
-        cameraController.InitialGlitch();
+        yield return null;
     }
 
     private IEnumerator RoundPlaying()
@@ -92,6 +110,14 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator RoundEnding()
     {
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].isAlive)
+            {
+                PlayerManager.playerHeightMultiplier[i] += 0.01f;
+                break;
+            }
+        }
         yield return endWait;
     }
 
@@ -104,6 +130,11 @@ public class GameManager : MonoBehaviour {
             if (players[i].isAlive)
             {
                 playersAliveNow++;
+            }
+            else if (!firstBlood)
+            {
+                firstBlood = true;
+                PlayerManager.playerHeightMultiplier[i] -= 0.01f;
             }
         }
 

@@ -20,6 +20,26 @@ class AnimateTiledTexture : MonoBehaviour
         GetComponent<Renderer>().sharedMaterial.SetTextureScale("_MainTex", size);
     }
 
+    /*private IEnumerator updateTiling()
+    {
+        while (true)
+        {
+            //move to the next index
+            index++;
+            if (index >= rows * columns - 4)
+                index = 0;
+
+            //split into x and y indexes
+            Vector2 offset = new Vector2((float)index / columns - (index / columns), //x index
+                                          (index / columns) / (float)rows);          //y index
+
+            GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
+
+            yield return new WaitForSeconds(1f / framesPerSecond);
+        }
+
+    }*/
+
     private IEnumerator UpdateTiling()
     {
         float x = 0f;

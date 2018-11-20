@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Kino;
-using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,24 +11,17 @@ public class CameraController : MonoBehaviour
     protected Vector3 averagePlayerPosition;
     protected float maxPlayerDistance;
 
-    public void InitialGlitch()
-    {
-        GetComponent<Datamosh>().Glitch();
-        StartCoroutine(IncreaseEntropy());
-    }
 
-    private IEnumerator IncreaseEntropy()
+    private bool isGlitching = false;
+    void Update()
     {
-        var datamosh = GetComponent<Datamosh>();
-
-        while(true)
+        if (Input.GetButton("Jump0"))
         {
-            yield return new WaitForSeconds(6);
-            if (datamosh.entropy < 1f)
-            {
-                datamosh.entropy += 0.05f;
-            }
-            datamosh.Glitch();
+            GetComponent<Datamosh>().Glitch();
+        }
+        else if (Input.GetButton("DropGun0"))
+        {
+            GetComponent<Datamosh>().Reset();
         }
     }
 

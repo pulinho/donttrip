@@ -128,6 +128,6 @@ public class CarLevelGenerator : MonoBehaviour {
         instance.AddComponent(typeof(AnimateTiledTexture));
 
         var rb = instance.AddComponent<Rigidbody>();
-        rb.mass = scale * 3;
+        rb.mass = scale * 500;
     }
 }

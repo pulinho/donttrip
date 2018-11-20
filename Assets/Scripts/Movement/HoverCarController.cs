@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class HoverCarController : MonoBehaviour
 {
-    [HideInInspector] public int playerNumber;
 
     Rigidbody body;
     float deadZone = 0.1f;
@@ -25,8 +23,6 @@ public class HoverCarController : MonoBehaviour
 
     int layerMask;
 
-    bool controlsActivated = false;
-
     // Use this for initialization
     void Start()
     {
@@ -35,23 +31,13 @@ public class HoverCarController : MonoBehaviour
 
         layerMask = 1 << LayerMask.NameToLayer("Vehicle");
         layerMask = ~layerMask;
-
-        StartCoroutine(ActivateControls());
-    }
-
-    private IEnumerator ActivateControls()
-    {
-        yield return new WaitForSeconds(1);
-        controlsActivated = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!controlsActivated) return;
-
         thrust = 0.0f;
-        float acceleration = Input.GetAxis("Fire" + playerNumber) - Input.GetAxis("Brake" + playerNumber);
+        float acceleration = Input.GetAxis("Fire0") - Input.GetAxis("Brake0");
         if (acceleration > deadZone)
             thrust = acceleration * forwardAcceleration;
         else if (acceleration < -deadZone)
@@ -59,7 +45,7 @@ public class HoverCarController : MonoBehaviour
 
         // Turning
         turnValue = 0.0f;
-        float turnAxis = Input.GetAxis("LeftStickHorizontal" + playerNumber);
+        float turnAxis = Input.GetAxis("LeftStickHorizontal0");
         if (Mathf.Abs(turnAxis) > deadZone)
             turnValue = turnAxis;
     }
