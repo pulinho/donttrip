@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour {
 
     private Transform gunRotation;
     private Quaternion shiftRotation; // for correcing aiming when player has been rotated
-    //private MovementBase movement;
+    private MovementBase movement;
 
     private static void SetInitialPlayerHeights()
     {
@@ -24,41 +24,41 @@ public class PlayerManager : MonoBehaviour {
     {
         isAlive = true;
 
-        //movement = instance.GetComponent<MovementBase>();
+        movement = instance.GetComponent<MovementBase>();
         
-        //gunRotation = instance.transform.Find("Body").transform.Find("GunRotation");
-        //gunPoint = gunRotation.transform.Find("GunPoint");
+        gunRotation = instance.transform.Find("Body").transform.Find("GunRotation");
+        gunPoint = gunRotation.transform.Find("GunPoint");
 
-        //movement.playerNumber = playerNumber;
-        //movement.gunPoint = gunPoint;
-        //movement.isAlive = true;
+        movement.playerNumber = playerNumber;
+        movement.gunPoint = gunPoint;
+        movement.isAlive = true;
 
         if (playerHeightMultiplier == null)
         {
             SetInitialPlayerHeights();
         }
 
-        //SetPlayerHeight();
+        SetPlayerHeight();
         instance.SetColor(playerColor);
     }
     
 
     private void SetPlayerHeight()
     {
-        //instance.transform.Find("Body").localScale = new Vector3(1, playerHeightMultiplier[playerNumber], 1);
-        //instance.transform.Find("Head").localPosition = new Vector3(0, playerHeightMultiplier[playerNumber] + 0.45f, 0);
+        instance.transform.Find("Body").localScale = new Vector3(1, playerHeightMultiplier[playerNumber], 1);
+        instance.transform.Find("Head").localPosition = new Vector3(0, playerHeightMultiplier[playerNumber] + 0.45f, 0);
     }
 
-    /*void Update()
+    void Update()
     {
         if (!movement.isAlive)
         {
             instance.SetColor(Color.white);
             isAlive = false;
         }
-    }*/
+    }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
         var angle = Vector3.Angle(Vector3.up, instance.transform.up);
         if(angle == 0)
@@ -75,5 +75,5 @@ public class PlayerManager : MonoBehaviour {
 
             gunRotation.rotation = instance.transform.rotation * shiftRotation * Quaternion.LookRotation(lookDirection);
         }
-    }*/
+    }
 }

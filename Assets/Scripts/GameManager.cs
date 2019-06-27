@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        Input.gyro.enabled = true;
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        //Input.gyro.enabled = true;
+        //Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         playersAlive = players.Length;
 
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
             players[i].Setup();
 
             var rb = players[i].instance.GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.forward * 8000);
+            // rb.AddForce(Vector3.forward * 8000);
         }
     }
 
@@ -69,9 +69,9 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButton("Reset"))
         {
-            SceneManager.LoadScene(0); // (++currentScene % 4);
+            SceneManager.LoadScene(++currentScene % 2);
         }
-        UpdateGyroTilt();
+        //UpdateGyroTilt();
     }
 
     public Transform phoneDummy;

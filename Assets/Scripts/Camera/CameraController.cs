@@ -15,14 +15,7 @@ public class CameraController : MonoBehaviour
     private bool isGlitching = false;
     void Update()
     {
-        if (Input.GetButton("Jump0"))
-        {
-            GetComponent<Datamosh>().Glitch();
-        }
-        else if (Input.GetButton("DropGun0"))
-        {
-            GetComponent<Datamosh>().Reset();
-        }
+        
     }
 
     private void FixedUpdate()

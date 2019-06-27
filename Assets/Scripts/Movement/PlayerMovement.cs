@@ -45,6 +45,7 @@ public class PlayerMovement : MovementBase
     private void Awake()
     {
         bodyRigidbody = GetComponent<Rigidbody>();
+        bodyRigidbody.centerOfMass = new Vector3();
     }
     
     void Start () {
@@ -143,10 +144,11 @@ public class PlayerMovement : MovementBase
         if (horizontalMovement != 0 || verticalMovement != 0)
         {
             var moveDirection = new Vector3(horizontalMovement, 0, verticalMovement) * speed * Time.deltaTime * angleMultiplier;
-            bodyRigidbody.AddForce(moveDirection);
+            var forceMultiplier = (collisionCount > 0) ? 2f : 1f;
+            bodyRigidbody.AddForce(moveDirection * forceMultiplier);
         }
 
-        if(Input.GetButton("Jump" + playerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
+        if (Input.GetButton("Jump" + playerNumber) && collisionCount > 0 && jumpCoolDownTimeStamp <= Time.time)
         {
             jumpCoolDownTimeStamp = Time.time + jumpCoolDownPeriodSec;
             bodyRigidbody.AddForce(new Vector3(0, 350 * angleMultiplier, 0));
